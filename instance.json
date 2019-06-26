@@ -1,0 +1,7 @@
+{
+    "file-type" : "link2-node-instance-2",
+    "$id": "l2node:/my-mesh/sample-novatel-gnss-ins-2",
+    "specification": "l2spec:/link_dev/ld-node-novatel-gnss-ins-2",
+    "user-configuration" : {
+    }
+}

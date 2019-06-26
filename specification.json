@@ -1,0 +1,12 @@
+{
+    "file-type" : "link2-node-specification-2",
+    "$id": "l2spec:/link_dev/ld-node-novatel-gnss-ins-2",
+    "pins" : {
+    },
+    "user-configuration-schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {},
+        "additionalProperties" : false
+    }
+}

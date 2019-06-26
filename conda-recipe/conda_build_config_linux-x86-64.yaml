@@ -1,0 +1,16 @@
+# This file is part of project link.developers/ld-node-novatel-gnss-ins-2.
+# It is copyrighted by the contributors recorded in the version control history of the file,
+# available from its original location https://gitlab.com/link.developers/ld-node-novatel-gnss-ins-2.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+c_compiler:
+  - gcc
+c_compiler_version:
+  - 7.3.0
+
+cxx_compiler:
+  - gxx
+cxx_compiler_version:
+  - 7.3.0
+
