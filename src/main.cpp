@@ -10,6 +10,7 @@
 #include <DRAIVE/Link2/NodeDiscovery.hpp>
 #include <DRAIVE/Link2/NodeResources.hpp>
 #include <DRAIVE/Link2/SignalHandler.hpp>
+#include "NovatelNode.h"
 
 int main(int argc, char** argv)
 {
@@ -27,8 +28,7 @@ int main(int argc, char** argv)
         // if signal is not shutdown
         while (signalHandler.receiveSignal() != LINK2_SIGNAL_INTERRUPT)
             ;
-        
-        return 0;
+        return link_dev::Services::NovatelNode{argc, argv}.run();        
         
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;

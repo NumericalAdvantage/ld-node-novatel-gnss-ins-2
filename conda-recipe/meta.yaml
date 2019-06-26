@@ -16,18 +16,33 @@ requirements:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
+    - novatel>0.9.0
+    - serial
+    - boost
+    - ld-data-protobuf
     - ld-cmake-tools
+    - ld-lib-geospatial
     - flatc
 
   host:
     - link2-cpp
+    - ld-lib-geospatial
 
   run:
+    - novatel>0.9.0
+    - serial
+    - ld-data-protobuf
     - link2
+    - boost
 
 test:
   commands:
     - "ld-node-novatel-gnss-ins-2 --help"
+    - novatel>0.9.0
+    - serial
+    - ld-data-protobuf
+    - link
+    - boost
 
 extra:
   git-commit: {{ GIT_FULL_HASH }}
@@ -37,3 +52,4 @@ about:
   license: "MPL-2.0"
   license_file: "LICENSE"
   summary: "An application to retrieve positional and inertial data from Novatel OEM4 and OEMV series of devices ideally suited for OEMV receivers equipped with SPAN technology."
+
