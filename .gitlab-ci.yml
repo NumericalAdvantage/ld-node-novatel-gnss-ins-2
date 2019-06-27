@@ -1,0 +1,98 @@
+# This file is part of project link.developers/ld-node-novatel-gnss-ins-2.
+# It is copyrighted by the contributors recorded in the version control history of the file,
+# available from its original location https://gitlab.com/link.developers/ld-node-novatel-gnss-ins-2.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+stages:
+  - verify
+  - build
+  - test
+  - deploy
+
+.verify: &verify
+  stage: verify
+  script:
+    - conda install -y ld-tool-liam ld-templates
+    - ld-tool-liam verify .
+
+.build: &build
+  stage: build
+  script:
+    - conda install -y build-tool
+    - build-tool build conda-recipe -m conda-recipe/conda_build_config_${PLATFORM}.yaml --croot ./builds --no-test
+  artifacts:
+    paths:
+      - ./builds/noarch/*.tar.bz2
+      - ./builds/linux-64/*.tar.bz2
+      - ./builds/linux-aarch64/*.tar.bz2
+      - ./builds/win-64/*.tar.bz2
+
+.test: &test
+  stage: test
+  script:
+    - conda install -y build-tool
+    - build-tool test-channel ./builds
+
+.deploy: &deploy
+  stage: deploy
+  script:
+    - conda install -y darts-cli
+    - darts-cli conda link.developers ./builds/
+  only:
+    - master@link.developers/ld-node-novatel-gnss-ins-2
+
+
+.tag-linux-intel64: &tag-linux-intel64
+  tags:
+    - linux
+    - docker
+  image: community-ci-intel64:latest
+
+.tag-linux-aarch64: &tag-linux-aarch64
+  tags:
+    - linux
+    - docker
+  image: community-ci-aarch64:latest
+
+.tag-win-intel64: &tag-win-intel64
+  tags:
+    - win
+
+liam-verify:
+  <<: *verify
+  <<: *tag-linux-intel64
+
+build-linux-intel64:
+  variables:
+    PLATFORM: "linux-x86-64"
+  <<: *build
+  <<: *tag-linux-intel64
+
+test-linux-intel64:
+  <<: *test
+  <<: *tag-linux-intel64
+
+build-linux-aarch64:
+  variables:
+    PLATFORM: "linux-aarch64"
+  <<: *build
+  <<: *tag-linux-intel64
+
+test-linux-aarch64:
+  <<: *test
+  <<: *tag-linux-aarch64
+
+build-win-intel64:
+  variables:
+    PLATFORM: "win-x86-64"
+  <<: *build
+  <<: *tag-win-intel64
+
+test-win-intel64:
+  <<: *test
+  <<: *tag-win-intel64
+
+deploy:
+  <<: *deploy
+  <<: *tag-linux-intel64
