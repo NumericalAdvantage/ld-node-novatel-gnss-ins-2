@@ -1,0 +1,22 @@
+table GPSMeasurement 
+{
+    timestamp: int64;   // ns since Unix Epoch
+    latitude: double;   // degrees, S<0, N>0
+    longitude: double;  // degrees, W<0, E>0
+    altitude: double;   // metres
+    gpsQuality: uint8;  // GPS quality according to NMEA standard
+}
+
+table AccData
+{
+    accownX: int64;
+    accownY: int64;
+    accownZ: int64;
+}
+
+table GyrData
+{
+    gyrownX: int64;
+    gyrownY: int64;
+    gyrownZ: int64;
+}

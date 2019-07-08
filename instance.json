@@ -1,7 +1,28 @@
 {
     "file-type" : "link2-node-instance-2",
-    "$id": "l2node:/my-mesh/sample-novatel-gnss-ins-2",
-    "specification": "l2spec:/link_dev/ld-node-novatel-gnss-ins-2",
-    "user-configuration" : {
+    "$id": "l2node:/GPS-mesh/sample-novatel-gnss-ins-2",
+    "specification": "l2spec:/GPS-mesh/ld-node-novatel-gnss-ins-2",
+    "pins" : 
+    {
+        "GNSS2_output_pin" : 
+        {
+            "dataobject-queue-capacity" : "1000dos",
+            "offers" :  
+            {
+                "GPSMeasurement" : [ "l2offer:/GPSMeasurement" ],
+                "AccelerationData" : ["l2offer:/AccelerationData"],
+                "GyroscopeData" : ["l2offer:/GyroscopeData"]
+            }
+        }
+    },
+    "user-configuration" : 
+    {
+        "DeviceID" : "Propak_V3",
+        "BaudRate" : 115200,
+        "SerialPortAddress" : "/dev/ttyUSB0",
+        "EnableIMU" : false,
+        "GNSSRateHz" : 20,
+        "FileLogging" : true,
+        "LogPath" : ""
     }
 }

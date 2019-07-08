@@ -1,12 +1,55 @@
 {
     "file-type" : "link2-node-specification-2",
-    "$id": "l2spec:/link_dev/ld-node-novatel-gnss-ins-2",
-    "pins" : {
+    "$id": "l2spec:/GPS-mesh/ld-node-novatel-gnss-ins-2",
+    "pins" : 
+    {
+        "GNSS2_output_pin": 
+        {
+            "pin-type" : "output",
+            "supplies" : 
+            {
+                "GPSMeasurement" : 
+                {
+                    "data-type" : 
+                    {
+                        "schema-filename" : "data/data.bfbs",
+                        "table-name" : "GPSMeasurement"
+                    }
+                },
+                "AccelerationData" :
+                {
+                    "data-type" :
+                    {
+                        "schema-filename" : "data/data.bfbs",
+                        "table-name" : "AccData"
+                    }
+                },
+                "GyroscopeData" :
+                {
+                    "data-type" :
+                    {
+                        "schema-filename" : "data/data.bfbs",
+                        "table-name" : "GyrData"
+                    }
+                }
+            }
+        }
     },
-    "user-configuration-schema": {
+    "user-configuration-schema": 
+    {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
-        "properties": {},
+        "properties": 
+        {
+            "DeviceID" : { "type" : "string"},
+            "BaudRate" : { "type" : "number"},
+            "SerialPortAddress" : { "type" : "string"},
+            "EnableIMU" : { "type" : "boolean"},
+            "GNSSRateHz" : { "type" : "number"},
+            "FileLogging" : { "type" : "boolean"},
+            "LogPath" : { "type" : "string"}
+        },
+        "required" : [ "DeviceID", "BaudRate", "SerialPortAddress", "EnableIMU", "GNSSRateHz", "FileLogging", "LogPath" ],
         "additionalProperties" : false
     }
 }

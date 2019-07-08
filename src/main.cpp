@@ -10,27 +10,46 @@
 #include <DRAIVE/Link2/NodeDiscovery.hpp>
 #include <DRAIVE/Link2/NodeResources.hpp>
 #include <DRAIVE/Link2/SignalHandler.hpp>
-#include "NovatelNode.h"
+#include <DRAIVE/Link2/ConfigurationFile.hpp>
+#include <DRAIVE/Link2/ConfigurationNode.hpp>
+#include <DRAIVE/Link2/OutputPin.hpp>
+#include "NovatelGNSSNode.h"
 
 int main(int argc, char** argv)
 {
-    try {
+    try 
+    {
         // load the node resources for our subscriber
-        DRAIVE::Link2::NodeResources nodeResources { "l2spec:/link_dev/ld-node-novatel-gnss-ins-2", argc, argv };
-        
+        DRAIVE::Link2::NodeResources nodeResources{"l2spec:/GPS-mesh/ld-node-novatel-gnss-ins-2", argc, argv};
         // announce that our node is "online"
-        DRAIVE::Link2::NodeDiscovery nodeDiscovery { nodeResources };
+        DRAIVE::Link2::NodeDiscovery nodeDiscovery{nodeResources};
         
-        // create a blocking signal handler
+        DRAIVE::Link2::ConfigurationNode rootNode = nodeResources.getUserConfiguration();
+        DRAIVE::Link2::OutputPin outputPin{nodeDiscovery, nodeResources, "GNSS2_output_pin"};
+       
         DRAIVE::Link2::SignalHandler signalHandler {};
         signalHandler.setReceiveSignalTimeout(-1);
+
+        GNSS2::NovatelGNSSNode node{rootNode.getInt("GNSSRateHz"),
+                                    rootNode.getString("SerialPortAddress"),
+                                    rootNode.getBoolean("EnableIMU"),
+                                    rootNode.getInt("BaudRate"),
+                                    rootNode.getString("LogPath"),
+                                    rootNode.getBoolean("FileLogging"),
+                                    nodeResources, nodeDiscovery, outputPin};
+        if(node.Init() < 0)
+        {
+            return 1;        
+        }
+
+        while(signalHandler.receiveSignal() != LINK2_SIGNAL_INTERRUPT);
         
-        // if signal is not shutdown
-        while (signalHandler.receiveSignal() != LINK2_SIGNAL_INTERRUPT)
-            ;
-        return link_dev::Services::NovatelNode{argc, argv}.run();        
+        node.Cleanup();            
         
-    } catch (const std::exception& e) {
+        return 0;
+    } 
+    catch (const std::exception& e) 
+    {
         std::cerr << e.what() << std::endl;
         return 1;
     }
