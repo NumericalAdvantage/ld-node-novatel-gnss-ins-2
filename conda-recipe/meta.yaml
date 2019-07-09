@@ -23,6 +23,7 @@ requirements:
     - ld-cmake-tools
     - ld-lib-geospatial
     - flatc
+    - spdlog
 
   host:
     - link2-cpp
