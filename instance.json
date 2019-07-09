@@ -20,8 +20,8 @@
         "DeviceID" : "Propak_V3",
         "BaudRate" : 115200,
         "SerialPortAddress" : "/dev/ttyUSB0",
-        "EnableIMU" : false,
-        "GNSSRateHz" : 20,
+        "EnableIMU" : true,
+        "GNSSRateHz" : 5,
         "FileLogging" : true,
         "LogPath" : ""
     }
