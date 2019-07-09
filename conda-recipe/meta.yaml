@@ -16,7 +16,7 @@ requirements:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
-    - novatel>0.9.0
+    - novatel>0.9.0.1
     - serial
     - boost
     - ld-cmake-tools
@@ -28,7 +28,7 @@ requirements:
     - ld-lib-geospatial
 
   run:
-    - novatel>0.9.0
+    - novatel>0.9.0.1
     - serial
     - link2
     - boost
@@ -36,7 +36,7 @@ requirements:
 test:
   commands:
     - "ld-node-novatel-gnss-ins-2 --help"
-    - novatel>0.9.0
+    - novatel>0.9.0.1 
     - serial
     - link
     - boost
