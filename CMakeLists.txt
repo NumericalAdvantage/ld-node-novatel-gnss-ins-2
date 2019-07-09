@@ -29,7 +29,6 @@ find_package(serial REQUIRED)
 find_package(ld-cmake-tools REQUIRED)
 find_package(spdlog REQUIRED)
 
-include(${LD_DATA_PROTOBUF_USE_FILE})
 include(${LD_CMAKE_TOOLS_USE_FILE})
 
 # When adding new data formats, add them to the INPUT_FILES section.
