@@ -27,8 +27,6 @@ find_package(Boost REQUIRED COMPONENTS system filesystem thread)
 find_package(novatel CONFIG REQUIRED)
 find_package(serial REQUIRED)
 find_package(ld-cmake-tools REQUIRED)
-find_package(ld-data-protobuf REQUIRED)
-find_package(ld-lib-geospatial REQUIRED)
 find_package(spdlog REQUIRED)
 
 include(${LD_DATA_PROTOBUF_USE_FILE})
