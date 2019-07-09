@@ -22,6 +22,7 @@ requirements:
     - ld-cmake-tools
     - flatc
     - spdlog
+    skip: true # [aarch64]
 
   host:
     - link2-cpp
