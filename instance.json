@@ -1,7 +1,7 @@
 {
     "file-type" : "link2-node-instance-2",
-    "$id": "l2node:/GPS-mesh/sample-novatel-gnss-ins-2",
-    "specification": "l2spec:/GPS-mesh/ld-node-novatel-gnss-ins-2",
+    "$id": "l2node:/link_dev/ld-node-novatel-gnss-ins-2",
+    "specification": "l2spec:/link_dev/ld-node-novatel-gnss-ins-2",
     "pins" : 
     {
         "GNSS2_output_pin" : 

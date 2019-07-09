@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     try 
     {
         // load the node resources for our subscriber
-        DRAIVE::Link2::NodeResources nodeResources{"l2spec:/GPS-mesh/ld-node-novatel-gnss-ins-2", argc, argv};
+        DRAIVE::Link2::NodeResources nodeResources{"l2spec:/link_dev/ld-node-novatel-gnss-ins-2", argc, argv};
         // announce that our node is "online"
         DRAIVE::Link2::NodeDiscovery nodeDiscovery{nodeResources};
         
