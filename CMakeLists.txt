@@ -57,7 +57,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${FLATC_GENERATED_INCLUDE_DIRS} PUBLIC  {novatel_INCLUDE_DIRS} ${serial_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog PUBLIC DRAIVE::Link2-Cpp novatel ${serial_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES} link_dev::ld-data-protobuf link_dev::ld-lib-geospatial)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog PUBLIC DRAIVE::Link2-Cpp novatel ${serial_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES})
 
 cmake_make_installation(
         TARGETS ${PROJECT_NAME}
