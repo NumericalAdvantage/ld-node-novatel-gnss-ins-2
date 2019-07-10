@@ -11,19 +11,11 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -fPIC")
 
-add_definitions(-DBOOST_ALL_NO_LIB)
-
-set(Boost_USE_STATIC_LIBS     ON)
-set(Boost_USE_DEBUG_RUNTIME   ON)
-set(Boost_USE_STATIC_LIBS     ON)
-set(Boost_USE_MULTITHREADED   ON)
-set(Boost_USE_STATIC_RUNTIME  OFF)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_package(Link2-Cpp REQUIRED)
 find_package(Flatc REQUIRED)
 find_package(ld-cmake-tools REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system filesystem thread)
 find_package(novatel CONFIG REQUIRED)
 find_package(serial REQUIRED)
 find_package(ld-cmake-tools REQUIRED)
@@ -53,11 +45,8 @@ add_executable(${PROJECT_NAME}
     ${FLATC_GENERATED_SOURCES}
     )
 
-include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
-
 target_include_directories(${PROJECT_NAME} PRIVATE ${FLATC_GENERATED_INCLUDE_DIRS} PUBLIC  {novatel_INCLUDE_DIRS} ${serial_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog PUBLIC DRAIVE::Link2-Cpp novatel ${serial_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog PUBLIC DRAIVE::Link2-Cpp novatel ${serial_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 cmake_make_installation(
         TARGETS ${PROJECT_NAME}

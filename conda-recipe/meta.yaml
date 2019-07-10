@@ -18,7 +18,6 @@ requirements:
     - cmake
     - novatel>0.9.0
     - serial
-    - boost
     - ld-cmake-tools
     - flatc
     - spdlog
@@ -31,7 +30,6 @@ requirements:
     - novatel>0.9.0
     - serial
     - link2
-    - boost
 
 test:
   commands:

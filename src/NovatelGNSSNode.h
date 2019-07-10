@@ -14,9 +14,6 @@
 #include <atomic>
 #include <fstream>
 #include <string>
-#include <boost/tokenizer.hpp>
-#include <boost/thread/thread.hpp>
-#include <boost/thread.hpp>
 #include <novatel/novatel.h>
 #include <spdlog/spdlog.h>
 
