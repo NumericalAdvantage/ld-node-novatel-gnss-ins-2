@@ -14,7 +14,6 @@ table GPSMeasurement
     latitude: double;         // degrees, S<0, N>0
     longitude: double;        // degrees, W<0, E>0
     altitude: double;         // metres
-    gpsQuality: uint8;        // GPS quality according to NMEA standard
 }
 
 table AccData
