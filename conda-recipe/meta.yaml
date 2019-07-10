@@ -11,9 +11,11 @@ package:
 source:
   git_url: ../
 
+build:
+  skip: true  # [not x86_64]
+
 requirements:
   build:
-    skip: true  # [not x86_64]
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
