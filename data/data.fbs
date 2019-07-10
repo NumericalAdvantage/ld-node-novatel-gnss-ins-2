@@ -5,7 +5,7 @@
  *
  * SPDX-License-Identifier: MPL-2.0
  */
- 
+
 table GPSMeasurement 
 {
     timestamp: int64;   // ns since Unix Epoch
@@ -17,6 +17,7 @@ table GPSMeasurement
 
 table AccData
 {
+    timestamp: int64;   // ns since Unix Epoch
     accownX: int64;
     accownY: int64;
     accownZ: int64;
@@ -24,6 +25,7 @@ table AccData
 
 table GyrData
 {
+    timestamp: int64;   // ns since Unix Epoch
     gyrownX: int64;
     gyrownY: int64;
     gyrownZ: int64;

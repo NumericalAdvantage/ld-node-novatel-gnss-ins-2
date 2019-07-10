@@ -18,7 +18,7 @@
 *    Reset the device and Deregister all the logs
 *   \return void
 */
-bool GNSS2::NovatelGNSSNode::ResetLogs() 
+bool link_dev::NovatelGNSSNode::ResetLogs() 
 {
     try 
     {
@@ -41,7 +41,7 @@ bool GNSS2::NovatelGNSSNode::ResetLogs()
  *    2. Best Position data
  *   \return void0
  */
-bool GNSS2::NovatelGNSSNode::SetCallBacks() 
+bool link_dev::NovatelGNSSNode::SetCallBacks() 
 {
     try 
     {
@@ -86,7 +86,7 @@ bool GNSS2::NovatelGNSSNode::SetCallBacks()
      2.     CORRIMUDATAB    ONTIME      0.01 (only 1 message from INS is allowed at 100 Hz)
    \return bool
 */
-bool GNSS2::NovatelGNSSNode::ConfigureRecording() 
+bool link_dev::NovatelGNSSNode::ConfigureRecording() 
 {
     try {
         //From reference manuals of Novatel, the max rate at which SPAN log BESTPOSB
@@ -143,7 +143,7 @@ bool GNSS2::NovatelGNSSNode::ConfigureRecording()
 *	If the initialization succeeds, 0 is returned.
 *   \return int8_t
 */
-int8_t GNSS2::NovatelGNSSNode::Init()
+int8_t link_dev::NovatelGNSSNode::Init()
 {
     if(novatelDevice.Connect(m_serialCommAddr, m_baudRate)) 
     {
@@ -195,7 +195,7 @@ int8_t GNSS2::NovatelGNSSNode::Init()
 *    3. Disconnect the device
 *   \return void
 */
-void GNSS2::NovatelGNSSNode::Cleanup()
+void link_dev::NovatelGNSSNode::Cleanup()
 {
     novatelDevice.UnlogAll();
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
@@ -213,7 +213,7 @@ void GNSS2::NovatelGNSSNode::Cleanup()
 *    as defined by NovAtel.
 *   \return void
 */
-void GNSS2::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData, double &dData) {
+void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData, double &dData) {
 	
 	if (posData.solution_status != novatel::SOL_COMPUTED) 
     {
@@ -234,6 +234,8 @@ void GNSS2::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData, do
     gps.altitude = posData.height;
     gps.latitude = posData.latitude;
     gps.longitude = posData.longitude;
+    gps.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                    (std::chrono::system_clock::now().time_since_epoch()).count();
 
     m_outputPin.push(gps, "GPSMeasurement");
 }
@@ -243,7 +245,7 @@ void GNSS2::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData, do
 *    set the serializable message for IMU acceleration data and
 *    Gyroscope data and publish it.
 *   \return void*/
-void GNSS2::NovatelGNSSNode::CorrImuCallback(novatel::CorrImu &corrIMUData, double &dReadTimestamp) 
+void link_dev::NovatelGNSSNode::CorrImuCallback(novatel::CorrImu &corrIMUData, double &dReadTimestamp) 
 {
 	
 	//Map measurement to the the right coordinate system and scale it
@@ -262,9 +264,14 @@ void GNSS2::NovatelGNSSNode::CorrImuCallback(novatel::CorrImu &corrIMUData, doub
 
     AccDataT ad{};
     ad.accownX = accX; ad.accownY = accY; ad.accownZ = accZ;
+    ad.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                   (std::chrono::system_clock::now().time_since_epoch()).count();
     m_outputPin.push(ad, "AccelerationData");
+    
     GyrDataT gd{};
     gd.gyrownX = gyrX; gd.gyrownY = gyrY; gd.gyrownZ = gyrZ;
+    gd.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                   (std::chrono::system_clock::now().time_since_epoch()).count();
     m_outputPin.push(gd, "GyroscopeData");
 
     return;

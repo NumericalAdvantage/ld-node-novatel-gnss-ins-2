@@ -29,13 +29,13 @@ int main(int argc, char** argv)
         DRAIVE::Link2::SignalHandler signalHandler {};
         signalHandler.setReceiveSignalTimeout(-1);
 
-        GNSS2::NovatelGNSSNode node{rootNode.getInt("GNSSRateHz"),
-                                    rootNode.getString("SerialPortAddress"),
-                                    rootNode.getBoolean("EnableIMU"),
-                                    rootNode.getInt("BaudRate"),
-                                    rootNode.getString("LogPath"),
-                                    rootNode.getBoolean("FileLogging"),
-                                    nodeResources, nodeDiscovery, outputPin};
+        link_dev::NovatelGNSSNode node{rootNode.getInt("GNSSRateHz"),
+                                       rootNode.getString("SerialPortAddress"),
+                                       rootNode.getBoolean("EnableIMU"),
+                                       rootNode.getInt("BaudRate"),
+                                       rootNode.getString("LogPath"),
+                                       rootNode.getBoolean("FileLogging"),
+                                       nodeResources, nodeDiscovery, outputPin};
         if(node.Init() < 0)
         {
             return 1;        

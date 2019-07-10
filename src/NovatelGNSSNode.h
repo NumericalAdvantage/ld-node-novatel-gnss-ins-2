@@ -24,7 +24,7 @@
                                      //This cannot be adjusted. This value is
                                      //scalefactor for the CORRIMUDATAB or CORRIMUDATASB messages.
 
-namespace GNSS2 
+namespace link_dev 
 {
     class NovatelGNSSNode
     {
