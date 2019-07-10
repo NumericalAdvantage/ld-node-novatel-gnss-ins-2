@@ -9,13 +9,16 @@ project(ld-node-novatel-gnss-ins-2)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_package(Link2-Cpp REQUIRED)
 find_package(Flatc REQUIRED)
 find_package(ld-cmake-tools REQUIRED)
-find_package(novatel REQUIRED)
 find_package(serial REQUIRED)
+find_package(novatel REQUIRED)
 find_package(spdlog REQUIRED)
+
+include(${LD_CMAKE_TOOLS_USE_FILE})
 
 # When adding new data formats, add them to the INPUT_FILES section.
 # If you use libraries that contain Flatbuffer files, uncomment the lines with LD_FLATBUFFER_ variables.
