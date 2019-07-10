@@ -12,14 +12,13 @@ source:
   git_url: ../
 
 build:
-  skip: true  # [not x86_64]
+  skip: true  # [aarch64]
 
 requirements:
   build:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
-    - serial
     - ld-cmake-tools
     - flatc
     
