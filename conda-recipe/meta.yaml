@@ -18,6 +18,7 @@ requirements:
     - cmake
     - ld-cmake-tools
     - flatc
+    skip: true  # [not x86_64]
 
   host:
     - link2-cpp
