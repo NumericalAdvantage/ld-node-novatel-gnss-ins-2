@@ -236,7 +236,8 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
     gps.longitude = posData.longitude;
     gps.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
                     (std::chrono::system_clock::now().time_since_epoch()).count();
-
+    gps.gps_week = posData.header.gps_week;
+    gps.gps_millisecs = posData.header.gps_millisecs;
     m_outputPin.push(gps, "GPSMeasurement");
 }
 
@@ -266,12 +267,16 @@ void link_dev::NovatelGNSSNode::CorrImuCallback(novatel::CorrImu &corrIMUData, d
     ad.accownX = accX; ad.accownY = accY; ad.accownZ = accZ;
     ad.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
                    (std::chrono::system_clock::now().time_since_epoch()).count();
+    ad.gps_week = corrIMUData.gps_week;
+    ad.gps_millisecs = corrIMUData.gps_millisecs; 
     m_outputPin.push(ad, "AccelerationData");
-    
+
     GyrDataT gd{};
     gd.gyrownX = gyrX; gd.gyrownY = gyrY; gd.gyrownZ = gyrZ;
     gd.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
                    (std::chrono::system_clock::now().time_since_epoch()).count();
+    gd.gps_week = corrIMUData.gps_week;
+    gd.gps_millisecs = corrIMUData.gps_millisecs;
     m_outputPin.push(gd, "GyroscopeData");
 
     return;
