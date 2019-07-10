@@ -19,6 +19,7 @@ requirements:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
+    - serial
     - ld-cmake-tools
     - flatc
     
