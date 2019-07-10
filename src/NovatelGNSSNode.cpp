@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <sstream>
+#include <thread>
 #include <DRAIVE/Link2/OutputPin.hpp>
 #include "NovatelGNSSNode.h"
 #include "data_generated.h"

@@ -10,7 +10,6 @@
 #include <DRAIVE/Link2/NodeDiscovery.hpp>
 #include <DRAIVE/Link2/NodeResources.hpp>
 #include <DRAIVE/Link2/SignalHandler.hpp>
-#include <DRAIVE/Link2/ConfigurationFile.hpp>
 #include <DRAIVE/Link2/ConfigurationNode.hpp>
 #include <DRAIVE/Link2/OutputPin.hpp>
 #include "NovatelGNSSNode.h"

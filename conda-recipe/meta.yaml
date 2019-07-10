@@ -16,20 +16,19 @@ requirements:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
-    - novatel>0.9.0
-    - serial
     - ld-cmake-tools
     - flatc
-    - spdlog
 
   host:
     - link2-cpp
-    - novatel>0.9.0
+    - novatel >=0.9.0.1
+    - serial
+    - spdlog >=1.0
 
   run:
-    - novatel>0.9.0
-    - serial
     - link2
+    - novatel >=0.9.0.1
+    - serial
 
 test:
   commands:
@@ -43,4 +42,3 @@ about:
   license: "MPL-2.0"
   license_file: "LICENSE"
   summary: "An application to retrieve positional and inertial data from Novatel OEM4 and OEMV series of devices ideally suited for OEMV receivers equipped with SPAN technology."
-

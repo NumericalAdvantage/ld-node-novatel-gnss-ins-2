@@ -10,12 +10,10 @@
 #define NOVATEL_GNSS_NODE_2_HPP
 
 #include <memory>
-#include <thread>
-#include <atomic>
-#include <fstream>
 #include <string>
 #include <novatel/novatel.h>
 #include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>	// for spdlog::basic_logger_mt()
 
 #define INSPVAB_DATA_RATE "0.01"     //Rate at which INS logs are requested (in seconds).
 #define MAX_GNSS_DATA_RATE 5         //Maximum allowed data rate when INS is used.
