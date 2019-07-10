@@ -13,13 +13,13 @@ source:
 
 requirements:
   build:
+    skip: true  # [not x86_64]
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cmake
     - ld-cmake-tools
     - flatc
-    skip: true  # [not x86_64]
-
+    
   host:
     - link2-cpp
     - novatel >=0.9.0.1
