@@ -250,6 +250,7 @@ void link_dev::NovatelGNSSNode::CorrImuCallback(novatel::CorrImu &corrIMUData, d
 {
 	
 	//Map measurement to the the right coordinate system and scale it
+    ////Reference: SPAN Technology for OEMV User Manual [Pg. 155]
 	double accY = -corrIMUData.LateralAcc * IMU_RATE_HZ;
 	double accX = corrIMUData.LongitudinalAcc * IMU_RATE_HZ;
 	double accZ = corrIMUData.VerticalAcc * IMU_RATE_HZ;
