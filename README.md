@@ -28,7 +28,7 @@ Basic information about the node is always recorded in a file even if this confi
 
 ## The node in action
 When connected to a map-gui:
-![The node in action.](test_drive_link2.png)
+![The node in action.](assets/test_drive_link2.png)
 
 ## Installation
 
@@ -47,7 +47,7 @@ The `sudo` is important, because on Linux root privileges are required to access
 ## Specification
 
 This node implements the following RFCs:
-- https://draive.com/link_dev/rfc/035/README/
+- 
 
 ## Contribution
 
