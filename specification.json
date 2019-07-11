@@ -45,6 +45,7 @@
             "BaudRate" : { "type" : "number"},
             "SerialPortAddress" : { "type" : "string"},
             "EnableIMU" : { "type" : "boolean"},
+            "EnableIncompleteEstimates" : {"type" : "boolean"},
             "GNSSRateHz" : { "type" : "number"},
             "FileLogging" : { "type" : "boolean"},
             "LogPath" : { "type" : "string"}

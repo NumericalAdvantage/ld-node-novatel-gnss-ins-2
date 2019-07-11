@@ -23,6 +23,7 @@
 #define IMU_RATE_HZ 100              //IMU Rate in Hz for HG1700 AG58 IMU. 
                                      //This cannot be adjusted. This value is
                                      //scalefactor for the CORRIMUDATAB or CORRIMUDATASB messages.
+#define DEVICE_SETTLE_TIME 1000      //We pause in between commands we send to the device (in milliseconds)
 
 namespace link_dev 
 {
@@ -38,6 +39,7 @@ namespace link_dev
             std::string m_logPath = "";
             bool m_logging = false;
             std::shared_ptr<spdlog::logger> m_logger;
+            bool m_enableIncompleteEstimates = false;
             DRAIVE::Link2::NodeResources m_nodeResources;
             DRAIVE::Link2::NodeDiscovery m_nodeDiscovery;
             DRAIVE::Link2::OutputPin m_outputPin;
@@ -57,13 +59,15 @@ namespace link_dev
         public:
 
             NovatelGNSSNode(int64_t dataRateHz, std::string serialCommAddr,
-                            bool enableIMU, int64_t baudRate, std::string logPath,
+                            bool enableIMU, bool enableIncompleteEstimates,
+                            int64_t baudRate, std::string logPath,
                             bool logging, DRAIVE::Link2::NodeResources nodeResources,
                             DRAIVE::Link2::NodeDiscovery nodeDiscovery,
                             DRAIVE::Link2::OutputPin outputPin) : 
                             m_dataRateHz(dataRateHz),
                             m_serialCommAddr(serialCommAddr),
                             m_enableIMU(enableIMU),
+                            m_enableIncompleteEstimates(enableIncompleteEstimates),
                             m_baudRate(baudRate),
                             m_logPath(logPath),
                             m_logging(logging),

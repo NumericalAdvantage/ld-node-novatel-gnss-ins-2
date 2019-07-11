@@ -8,30 +8,31 @@
 
 table GPSMeasurement 
 {
-    gps_week : int32;         // GPS Week number
-    gps_millisecs : int64;    // Milliseconds into week
-    timestamp: int64;         // ns since Unix Epoch
+    gps_week : int32;         // GPS Week number (gps timestamp)
+    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
+    timestamp: int64;         // ns since Unix Epoch (system timestamp)
     latitude: double;         // degrees, S<0, N>0
     longitude: double;        // degrees, W<0, E>0
     altitude: double;         // metres
+    SolutionStatus: int32;    // Mirrors the enum SolutionStatus described below. 
 }
 
 table AccData
 {
-    gps_week : int32;         // GPS Week number
-    gps_millisecs : int64;    // Milliseconds into week
+    gps_week : int32;         // GPS Week number (gps timestamp)
+    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
     timestamp: int64;         // ns since Unix Epoch
-    accownX: int64;
-    accownY: int64;
-    accownZ: int64;
+    accownX: int64;           // INS Longitudinal Acceleration (along y axis)
+    accownY: int64;           // INS Lateral Acceleration (along x axis)   
+    accownZ: int64;           // INS Vertical Acceleration (along z axis) 
 }
 
 table GyrData
 {
-    gps_week : int32;         // GPS Week number
-    gps_millisecs : int64;    // Milliseconds into week
-    timestamp: int64;         // ns since Unix Epoch
-    gyrownX: int64;
-    gyrownY: int64;
-    gyrownZ: int64;
+    gps_week : int32;         // GPS Week number (gps timestamp)
+    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
+    timestamp: int64;         // ns since Unix Epoch (system timestamp)
+    gyrownX: int64;           // RollRate About y axis rotation
+    gyrownY: int64;           // PitchRate About x axis rotation
+    gyrownZ: int64;           // YawRate About z axis rotation (Right Handed)
 }

@@ -98,10 +98,10 @@ bool link_dev::NovatelGNSSNode::ConfigureRecording()
             {
                 //Reference: SPAN Technology for OEMV User Manual [Pg. 146]
                 novatelDevice.ConfigureLogs("BESTPOSB ONTIME " + std::to_string(1.0 / m_dataRateHz));
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME));
                 //Reference: SPAN Technology for OEMV User Manual [Pg. 155]
                 novatelDevice.ConfigureLogs("CORRIMUDATAB ONTIME 0.01");
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME));
             }
             else
             {
@@ -114,7 +114,7 @@ bool link_dev::NovatelGNSSNode::ConfigureRecording()
             {
                 //Reference: SPAN Technology for OEMV User Manual [Pg. 146]
                 novatelDevice.ConfigureLogs("BESTPOSB ONTIME " + std::to_string(1.0 / m_dataRateHz));
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME));
             }
             else
             {
@@ -148,7 +148,7 @@ int8_t link_dev::NovatelGNSSNode::Init()
     if(novatelDevice.Connect(m_serialCommAddr, m_baudRate)) 
     {
         m_logger->info("Successfully connected to the Novatel Device.");
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME * 2));
     }
     else 
     {
@@ -169,7 +169,7 @@ int8_t link_dev::NovatelGNSSNode::Init()
     if(SetCallBacks()) 
     {
         m_logger->info("Successfully set callbacks for the Novatel Device.");
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME));
     }
     else 
     {
@@ -198,9 +198,9 @@ int8_t link_dev::NovatelGNSSNode::Init()
 void link_dev::NovatelGNSSNode::Cleanup()
 {
     novatelDevice.UnlogAll();
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME * 2));
     novatelDevice.HardwareReset();
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(DEVICE_SETTLE_TIME * 2));
     novatelDevice.Disconnect();
 }
 
@@ -213,13 +213,27 @@ void link_dev::NovatelGNSSNode::Cleanup()
 *    as defined by NovAtel.
 *   \return void
 */
-void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData, double &dData) {
-	
-	if (posData.solution_status != novatel::SOL_COMPUTED) 
+void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData, double &dData) 
+{
+    GPSMeasurementT gps{};
+
+    if (posData.solution_status != novatel::SOL_COMPUTED)
     {
         if(m_logging)
         {
             m_logger->warn("Best Position data is not Computed: SolutionStatus:{0}, PositionType:{1}", std::to_string(posData.solution_status), std::to_string(posData.position_type));
+        }
+        if(m_enableIncompleteEstimates)
+        {
+            gps.altitude = posData.height;
+            gps.latitude = posData.latitude;
+            gps.longitude = posData.longitude;
+            gps.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                            (std::chrono::system_clock::now().time_since_epoch()).count();
+            gps.gps_week = posData.header.gps_week;
+            gps.gps_millisecs = posData.header.gps_millisecs;
+            gps.SolutionStatus = posData.solution_status;
+            m_outputPin.push(gps, "GPSMeasurement");
         }
         
         return;
@@ -230,7 +244,6 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
         m_logger->info("Best Position Message received: Lat:{0},Lon:{1},Alt:{2}", posData.latitude, posData.longitude, posData.height);
     }
 
-    GPSMeasurementT gps{};
     gps.altitude = posData.height;
     gps.latitude = posData.latitude;
     gps.longitude = posData.longitude;
@@ -238,6 +251,7 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
                     (std::chrono::system_clock::now().time_since_epoch()).count();
     gps.gps_week = posData.header.gps_week;
     gps.gps_millisecs = posData.header.gps_millisecs;
+    gps.SolutionStatus = posData.solution_status;
     m_outputPin.push(gps, "GPSMeasurement");
 }
 
@@ -251,12 +265,15 @@ void link_dev::NovatelGNSSNode::CorrImuCallback(novatel::CorrImu &corrIMUData, d
 	
 	//Map measurement to the the right coordinate system and scale it
     ////Reference: SPAN Technology for OEMV User Manual [Pg. 155]
-	double accY = -corrIMUData.LateralAcc * IMU_RATE_HZ;
+	
 	double accX = corrIMUData.LongitudinalAcc * IMU_RATE_HZ;
-	double accZ = corrIMUData.VerticalAcc * IMU_RATE_HZ;
-	double gyrX = corrIMUData.rollRate * IMU_RATE_HZ;
-	double gyrZ = corrIMUData.yawRate * IMU_RATE_HZ;
+	double accY = -corrIMUData.LateralAcc * IMU_RATE_HZ;
+    double accZ = corrIMUData.VerticalAcc * IMU_RATE_HZ;
+	
+    double gyrX = corrIMUData.rollRate * IMU_RATE_HZ;
 	double gyrY = -corrIMUData.pitchRate * IMU_RATE_HZ;
+    double gyrZ = corrIMUData.yawRate * IMU_RATE_HZ;
+	
 
     if(m_logging)
     {
