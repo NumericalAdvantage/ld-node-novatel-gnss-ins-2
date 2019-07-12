@@ -235,10 +235,19 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
             gps.SolutionStatus = posData.solution_status;
             m_outputPin.push(gps, "GPSMeasurement");
         }
+        else
+        {
+            gps.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                            (std::chrono::system_clock::now().time_since_epoch()).count();
+            gps.gps_week = posData.header.gps_week;
+            gps.gps_millisecs = posData.header.gps_millisecs;
+            gps.SolutionStatus = posData.solution_status;
+            m_outputPin.push(gps, "GPSMeasurement");
+        }
         
         return;
     }
-    
+
     if(m_logging)
     {
         m_logger->info("Best Position Message received: Lat:{0},Lon:{1},Alt:{2}", posData.latitude, posData.longitude, posData.height);
