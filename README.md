@@ -42,7 +42,7 @@ table GyrData
 ```
 
 ### Hardware setup
-The setup consists of an OEMV receiver attached to a GNSS antenna and an Inertial Navigation System(INS) using an IMU. This application was tested against a setup with Novatel Propak V3 enclosure which consists of an OEMV3 receiver, connected to an HG1700 AG58 IMU and a GPS antenna.
+The setup consists of an OEMV receiver attached to a GNSS antenna and an Inertial Navigation System(INS) using an IMU. This application was tested against a setup with Novatel Propak V3 enclosure which consists of an OEMV3 receiver, connected to an HG1700 AG58 IMU and a GPS antenna. A serial to USB converter would be needed if you want to connect your laptop to the novatel device.
 
 ### Configuration
 
@@ -50,7 +50,7 @@ The setup consists of an OEMV receiver attached to a GNSS antenna and an Inertia
 The BaudRate is necessary for the novatel library to connect to the hardware. If you work with given Novatel Propak V3, **115200** is the right value.
 
 #### SerialPortAddress
-The SerialPortAddress is OS and machine dependent but on windows it is always a *COM* port and on unix systems it is always a *dev/ttyS~* port.
+The SerialPortAddress is OS and machine dependent but on windows it is always a *COM* port and on unix systems it is always a *dev/ttyS~* port. On Linux, after you have inserted the USB cable to your laptop, try `dmesg | grep tty` to find the name of the serial port which you will use for the this parameter.
 
 #### EnableIMU
 If IMU data is also needed. Look at the supply to better understand what is available. 
