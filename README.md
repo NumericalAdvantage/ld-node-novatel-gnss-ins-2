@@ -55,8 +55,8 @@ The SerialPortAddress is OS and machine dependent but on windows it is always a 
 #### EnableIMU
 If IMU data is also needed. Look at the supply to better understand what is available.
 
-#### EnableIncompleteEstimates
-If set to `true`, the node will write position estimate received from the novatel device even in cases when the estimate is not deemed to be correct by the device. A data field called solutionStatus will indicate this. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf) 
+#### EnableBadSolutionStatus
+If set to `true`, the node will write a data field called solutionStatus on the mesh. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf). This would help for debugging this gnss node in situations where it is not working properly or producing too many errors in position estimates. 
 
 ```
 enum SolutionStatus

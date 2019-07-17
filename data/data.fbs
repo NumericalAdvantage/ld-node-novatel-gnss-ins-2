@@ -14,7 +14,14 @@ table GPSMeasurement
     latitude: double;         // degrees, S<0, N>0
     longitude: double;        // degrees, W<0, E>0
     altitude: double;         // metres
-    SolutionStatus: int32;    // Mirrors the enum SolutionStatus described below. 
+}
+
+table GPSBadSolution
+{
+    gps_week : int32;         // GPS Week number (gps timestamp)
+    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
+    timestamp: int64;         // ns since Unix Epoch (system timestamp)
+    SolutionStatus: int32;    // Mirrors the enum SolutionStatus. 
 }
 
 table AccData
