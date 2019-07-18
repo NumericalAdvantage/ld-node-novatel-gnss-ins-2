@@ -6,6 +6,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+//Supplies positional estimate.
 table GPSMeasurement 
 {
     gps_week : int32;         // GPS Week number (gps timestamp)
@@ -16,6 +17,8 @@ table GPSMeasurement
     altitude: double;         // metres
 }
 
+//If the device is unable to provide a good position estimate, it is 
+//reflected in this supply.
 table GPSBadSolution
 {
     gps_week : int32;         // GPS Week number (gps timestamp)

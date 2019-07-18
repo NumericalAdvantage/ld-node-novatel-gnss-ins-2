@@ -234,15 +234,18 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
 
         return;
     }
-    else if(m_enableBadSolutionStatus)
+    else 
     {
-        GPSBadSolutionT gbs{};
-        gbs.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
-                        (std::chrono::system_clock::now().time_since_epoch()).count();
-        gbs.gps_week = posData.header.gps_week;
-        gbs.gps_millisecs = posData.header.gps_millisecs;
-        gbs.SolutionStatus = posData.solution_status;
-        m_outputPin.push(gbs, "GPSMeasurement");
+        if(m_enableBadSolutionStatus)
+        {
+            GPSBadSolutionT gbs{};
+            gbs.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                            (std::chrono::system_clock::now().time_since_epoch()).count();
+            gbs.gps_week = posData.header.gps_week;
+            gbs.gps_millisecs = posData.header.gps_millisecs;
+            gbs.SolutionStatus = posData.solution_status;
+            m_outputPin.push(gbs, "GPSBadSolution");
+        }
 
         if(m_logging)
         {
@@ -251,7 +254,6 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
 
         return;
     }
-
 }
 
 

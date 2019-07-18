@@ -16,6 +16,14 @@
                         "table-name" : "GPSMeasurement"
                     }
                 },
+                "GPSBadSolution" : 
+                {
+                    "data-type" : 
+                    {
+                        "schema-filename" : "data/data.bfbs",
+                        "table-name" : "GPSBadSolution"
+                    }
+                },
                 "AccelerationData" :
                 {
                     "data-type" :
@@ -50,7 +58,7 @@
             "FileLogging" : { "type" : "boolean"},
             "LogPath" : { "type" : "string"}
         },
-        "required" : [ "DeviceID", "BaudRate", "SerialPortAddress", "EnableIMU", "GNSSRateHz", "FileLogging", "LogPath" ],
+        "required" : [ "DeviceID", "BaudRate", "SerialPortAddress", "EnableIMU", "EnableBadSolutionStatus", "GNSSRateHz", "FileLogging", "LogPath" ],
         "additionalProperties" : false
     }
 }

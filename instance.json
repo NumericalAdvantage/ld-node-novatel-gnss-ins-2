@@ -9,7 +9,8 @@
             "dataobject-queue-capacity" : "1000dos",
             "offers" :  
             {
-                "GPSMeasurement" : [ "l2offer:/GPSMeasurement" ],
+                "GPSMeasurement" : ["l2offer:/GPSMeasurement"],
+                "GPSBadSolution" : ["l2offer:/GPSBadSolution"],
                 "AccelerationData" : ["l2offer:/AccelerationData"],
                 "GyroscopeData" : ["l2offer:/GyroscopeData"]
             }

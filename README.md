@@ -9,6 +9,7 @@ The NovAtel Propak V3 device communicates via a serial protocol. We use a librar
 This node will write GNSS position estimates based on WSG84 standard on the mesh. It will also provide incremental updates to acceleration and gyroscopic data. This node supplies 3 offers called GPSMeasurement, AccelerationData, GyroscopeData and they are defined as below: 
 
 ```
+//Supplies positional estimate.
 table GPSMeasurement 
 {
     gps_week : int32;         // GPS Week number (gps timestamp)
@@ -17,7 +18,16 @@ table GPSMeasurement
     latitude: double;         // degrees, S<0, N>0
     longitude: double;        // degrees, W<0, E>0
     altitude: double;         // metres
-    SolutionStatus: int32;    // Mirrors the enum SolutionStatus described below. 
+}
+
+//If the device is unable to provide a good position estimate, it is 
+//reflected in this supply.
+table GPSBadSolution
+{
+    gps_week : int32;         // GPS Week number (gps timestamp)
+    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
+    timestamp: int64;         // ns since Unix Epoch (system timestamp)
+    GPSBadSolution: int32;    // Mirrors the enum SolutionStatus. 
 }
 
 table AccData
@@ -56,7 +66,7 @@ The SerialPortAddress is OS and machine dependent but on windows it is always a 
 If IMU data is also needed. Look at the supply to better understand what is available.
 
 #### EnableBadSolutionStatus
-If set to `true`, the node will write a data field called solutionStatus on the mesh. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf). This would help for debugging this gnss node in situations where it is not working properly or producing too many errors in position estimates. 
+If set to `true`, the node will write a table called GPSBadSolution which contains the data field called solutionStatus on the mesh. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf). This would help for debugging this gnss node in situations where it is not working properly or producing too many errors in position estimates. If you set this configuration parameter to `true`, don't forget to subscribe to `l2offer:/GPSBadSolution#/SolutionStatus`.
 
 ```
 enum SolutionStatus
