@@ -19,12 +19,12 @@ table GPSMeasurement
 
 //If the device is unable to provide a good position estimate, it is 
 //reflected in this supply.
-table GPSBadSolution
+table SolutionStatus
 {
-    gps_week : int32;         // GPS Week number (gps timestamp)
-    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
-    timestamp: int64;         // ns since Unix Epoch (system timestamp)
-    SolutionStatus: int32;    // Mirrors the enum SolutionStatus. 
+    gps_week : int32;             // GPS Week number (gps timestamp)
+    gps_millisecs : int64;        // Milliseconds into week (gps timestamp)
+    timestamp: int64;             // ns since Unix Epoch (system timestamp)
+    CurrentSolutionStatus: int32; // Mirrors the enum SolutionStatus. 
 }
 
 table AccData

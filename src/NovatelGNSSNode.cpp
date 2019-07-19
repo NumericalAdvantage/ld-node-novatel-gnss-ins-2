@@ -227,6 +227,17 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
         gps.gps_millisecs = posData.header.gps_millisecs;
         m_outputPin.push(gps, "GPSMeasurement");
 
+        if(m_enableSolutionStatus)
+        {
+            SolutionStatusT sls{};
+            sls.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                            (std::chrono::system_clock::now().time_since_epoch()).count();
+            sls.gps_week = posData.header.gps_week;
+            sls.gps_millisecs = posData.header.gps_millisecs;
+            sls.CurrentSolutionStatus = posData.solution_status;
+            m_outputPin.push(sls, "SolutionStatus");
+        }
+
         if(m_logging)
         {
             m_logger->info("Best Position Message received: Lat:{0},Lon:{1},Alt:{2}", posData.latitude, posData.longitude, posData.height);
@@ -236,15 +247,15 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
     }
     else 
     {
-        if(m_enableBadSolutionStatus)
+        if(m_enableSolutionStatus)
         {
-            GPSBadSolutionT gbs{};
-            gbs.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+            SolutionStatusT sls{};
+            sls.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
                             (std::chrono::system_clock::now().time_since_epoch()).count();
-            gbs.gps_week = posData.header.gps_week;
-            gbs.gps_millisecs = posData.header.gps_millisecs;
-            gbs.SolutionStatus = posData.solution_status;
-            m_outputPin.push(gbs, "GPSBadSolution");
+            sls.gps_week = posData.header.gps_week;
+            sls.gps_millisecs = posData.header.gps_millisecs;
+            sls.CurrentSolutionStatus = posData.solution_status;
+            m_outputPin.push(sls, "SolutionStatus");
         }
 
         if(m_logging)

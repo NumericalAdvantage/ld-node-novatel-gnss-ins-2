@@ -22,12 +22,12 @@ table GPSMeasurement
 
 //If the device is unable to provide a good position estimate, it is 
 //reflected in this supply.
-table GPSBadSolution
+table SolutionStatus
 {
-    gps_week : int32;         // GPS Week number (gps timestamp)
-    gps_millisecs : int64;    // Milliseconds into week (gps timestamp)
-    timestamp: int64;         // ns since Unix Epoch (system timestamp)
-    GPSBadSolution: int32;    // Mirrors the enum SolutionStatus. 
+    gps_week : int32;             // GPS Week number (gps timestamp)
+    gps_millisecs : int64;        // Milliseconds into week (gps timestamp)
+    timestamp: int64;             // ns since Unix Epoch (system timestamp)
+    CurrentSolutionStatus: int32; // Mirrors the enum SolutionStatus. 
 }
 
 table AccData
@@ -65,8 +65,8 @@ The SerialPortAddress is OS and machine dependent but on windows it is always a 
 #### EnableIMU
 If IMU data is also needed. Look at the supply to better understand what is available.
 
-#### EnableBadSolutionStatus
-If set to `true`, the node will write a table called GPSBadSolution which contains the data field called solutionStatus on the mesh. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf). This would help for debugging this gnss node in situations where it is not working properly or producing too many errors in position estimates. If you set this configuration parameter to `true`, don't forget to subscribe to `l2offer:/GPSBadSolution#/SolutionStatus`.
+#### EnableSolutionStatus
+If set to `true`, the node will write a table called SolutionStatus which contains the data field called CurrentSolutionStatus on the mesh. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf). This would help for debugging this gnss node in situations where it is not working properly or producing too many errors in position estimates. If you set this configuration parameter to `true`, don't forget to subscribe to `l2offer:/SolutionStatus#/CurrentSolutionStatus`.
 
 ```
 enum SolutionStatus

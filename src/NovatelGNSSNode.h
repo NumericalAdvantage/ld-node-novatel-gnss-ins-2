@@ -39,7 +39,7 @@ namespace link_dev
             std::string m_logPath = "";
             bool m_logging = false;
             std::shared_ptr<spdlog::logger> m_logger;
-            bool m_enableBadSolutionStatus = false;
+            bool m_enableSolutionStatus = false;
             DRAIVE::Link2::NodeResources m_nodeResources;
             DRAIVE::Link2::NodeDiscovery m_nodeDiscovery;
             DRAIVE::Link2::OutputPin m_outputPin;
@@ -59,7 +59,7 @@ namespace link_dev
         public:
 
             NovatelGNSSNode(int64_t dataRateHz, std::string serialCommAddr,
-                            bool enableIMU, bool enableBadSolutionStatus,
+                            bool enableIMU, bool enableSolutionStatus,
                             int64_t baudRate, std::string logPath,
                             bool logging, DRAIVE::Link2::NodeResources nodeResources,
                             DRAIVE::Link2::NodeDiscovery nodeDiscovery,
@@ -67,7 +67,7 @@ namespace link_dev
                             m_dataRateHz(dataRateHz),
                             m_serialCommAddr(serialCommAddr),
                             m_enableIMU(enableIMU),
-                            m_enableBadSolutionStatus(enableBadSolutionStatus),
+                            m_enableSolutionStatus(enableSolutionStatus),
                             m_baudRate(baudRate),
                             m_logPath(logPath),
                             m_logging(logging),

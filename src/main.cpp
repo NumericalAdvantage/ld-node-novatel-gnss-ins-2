@@ -32,7 +32,7 @@ int main(int argc, char** argv)
         link_dev::NovatelGNSSNode node{rootNode.getInt("GNSSRateHz"),
                                        rootNode.getString("SerialPortAddress"),
                                        rootNode.getBoolean("EnableIMU"),
-                                       rootNode.getBoolean("EnableBadSolutionStatus"),
+                                       rootNode.getBoolean("EnableSolutionStatus"),
                                        rootNode.getInt("BaudRate"),
                                        rootNode.getString("LogPath"),
                                        rootNode.getBoolean("FileLogging"),

@@ -10,7 +10,7 @@
             "offers" :  
             {
                 "GPSMeasurement" : ["l2offer:/GPSMeasurement"],
-                "GPSBadSolution" : ["l2offer:/GPSBadSolution"],
+                "SolutionStatus" : ["l2offer:/CurrentSolutionStatus"],
                 "AccelerationData" : ["l2offer:/AccelerationData"],
                 "GyroscopeData" : ["l2offer:/GyroscopeData"]
             }
@@ -22,7 +22,7 @@
         "BaudRate" : 115200,
         "SerialPortAddress" : "/dev/ttyUSB0",
         "EnableIMU" : true,
-        "EnableBadSolutionStatus" : false,
+        "EnableSolutionStatus" : false,
         "GNSSRateHz" : 5,
         "FileLogging" : true,
         "LogPath" : ""
