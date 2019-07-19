@@ -22,7 +22,6 @@
         "BaudRate" : 115200,
         "SerialPortAddress" : "/dev/ttyUSB0",
         "EnableIMU" : true,
-        "EnableSolutionStatus" : false,
         "GNSSRateHz" : 5,
         "FileLogging" : true,
         "LogPath" : ""

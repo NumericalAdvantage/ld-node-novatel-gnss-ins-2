@@ -6,7 +6,7 @@
 
 An application to retrieve positional and inertial data from Novatel OEM4 and OEMV series of devices. It is suited ideally for OEMV receivers equipped with SPAN technology.
 The NovAtel Propak V3 device communicates via a serial protocol. We use a library internally which faciliates communication with the Novatel Device and provides C++ wrappers for common functions which are needed for interacting with the device.   
-This node will write GNSS position estimates based on WSG84 standard on the mesh. It will also provide incremental updates to acceleration and gyroscopic data. This node supplies 3 offers called GPSMeasurement, AccelerationData, GyroscopeData and they are defined as below: 
+This node will write GNSS position estimates based on WSG84 standard on the mesh. It will also provide incremental updates to acceleration and gyroscopic data. This node supplies 3 offers called GPSMeasurement, AccelerationData, GyroscopeData and they are defined as below. Example subscriptions based on below tables: `l2offer:/SolutionStatus#/CurrentSolutionStatus`, `l2offer:/GPSMeasurement#/latitude`.
 
 ```
 //Supplies positional estimate.
@@ -64,9 +64,6 @@ The SerialPortAddress is OS and machine dependent but on windows it is always a 
 
 #### EnableIMU
 If IMU data is also needed. Look at the supply to better understand what is available.
-
-#### EnableSolutionStatus
-If set to `true`, the node will write a table called SolutionStatus which contains the data field called CurrentSolutionStatus on the mesh. Values used are from the "SolutionStatus" enum shown below. The values are mapped from [SPAN Technology for OEMV User Manual Rev 11, Pg 148](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf). This would help for debugging this gnss node in situations where it is not working properly or producing too many errors in position estimates. If you set this configuration parameter to `true`, don't forget to subscribe to `l2offer:/SolutionStatus#/CurrentSolutionStatus`.
 
 ```
 enum SolutionStatus

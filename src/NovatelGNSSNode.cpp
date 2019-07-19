@@ -227,16 +227,13 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
         gps.gps_millisecs = posData.header.gps_millisecs;
         m_outputPin.push(gps, "GPSMeasurement");
 
-        if(m_enableSolutionStatus)
-        {
-            SolutionStatusT sls{};
-            sls.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
-                            (std::chrono::system_clock::now().time_since_epoch()).count();
-            sls.gps_week = posData.header.gps_week;
-            sls.gps_millisecs = posData.header.gps_millisecs;
-            sls.CurrentSolutionStatus = posData.solution_status;
-            m_outputPin.push(sls, "SolutionStatus");
-        }
+        SolutionStatusT sls{};
+        sls.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                        (std::chrono::system_clock::now().time_since_epoch()).count();
+        sls.gps_week = posData.header.gps_week;
+        sls.gps_millisecs = posData.header.gps_millisecs;
+        sls.CurrentSolutionStatus = posData.solution_status;
+        m_outputPin.push(sls, "SolutionStatus");
 
         if(m_logging)
         {
@@ -247,16 +244,13 @@ void link_dev::NovatelGNSSNode::BestPositionCallback(novatel::Position &posData,
     }
     else 
     {
-        if(m_enableSolutionStatus)
-        {
-            SolutionStatusT sls{};
-            sls.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
-                            (std::chrono::system_clock::now().time_since_epoch()).count();
-            sls.gps_week = posData.header.gps_week;
-            sls.gps_millisecs = posData.header.gps_millisecs;
-            sls.CurrentSolutionStatus = posData.solution_status;
-            m_outputPin.push(sls, "SolutionStatus");
-        }
+        SolutionStatusT sls{};
+        sls.timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>
+                        (std::chrono::system_clock::now().time_since_epoch()).count();
+        sls.gps_week = posData.header.gps_week;
+        sls.gps_millisecs = posData.header.gps_millisecs;
+        sls.CurrentSolutionStatus = posData.solution_status;
+        m_outputPin.push(sls, "SolutionStatus");
 
         if(m_logging)
         {
