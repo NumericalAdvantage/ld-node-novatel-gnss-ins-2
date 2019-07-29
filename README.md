@@ -131,6 +131,20 @@ This node implements the following RFCs:
 
 Your help is very much appreciated. For more information, please see our [contribution guide](./CONTRIBUTING.md) and the [Collective Code Construction Contract](https://gitlab.com/link.developers/RFC/blob/master/001/README.md) (C4).
 
+## References
+[SPAN Technology for OEMV User Manual](https://www.novatel.com/assets/Documents/Manuals/om-20000104.pdf)
+
+[OEMV Firmware Family Reference Manual](https://www.novatel.com/assets/Documents/Manuals/om-20000094.pdf)
+
+[Propak-V3 Quick Start Guide](https://www.novatel.com/assets/Documents/Manuals/gm-14915067.pdf)
+
 ## Maintainers
 
 - Ritwik Ghosh (maintainer, original author)
+
+This implementation is based on a [previous link version](https://gitlab.com/link.developers/ld-node-novatel-gnss-ins?nav_source=navbar) which was created by the following contributors:
+
+Richard Gräßler (current maintainer)
+Tibi Tom Abraham
+
+
