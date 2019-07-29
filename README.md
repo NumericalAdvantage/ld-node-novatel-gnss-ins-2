@@ -105,7 +105,8 @@ Basic information about the node is always recorded in a file even if this confi
 
 ## The node in action
 When connected to ld-node-2D-map-gui-2:
-![The node in action.](assets/test_drive_link2.png)
+![The node in action - 1.](assets/test_drive_link2.png)
+![The node in action - 2.](assets/testDrive.gif)
 
 ## Installation
 
